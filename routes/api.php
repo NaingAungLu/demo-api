@@ -21,7 +21,7 @@ Route::group(['middleware' => \Barryvdh\Cors\HandleCors::class, 'prefix' => 'v1'
     Route::middleware([CheckToken::class])->group(function () {
         Route::post('auth/logout', 'AuthController@logout');
     });
-    
+
 	Route::middleware([CheckToken::class])->group(function () {
 		Route::middleware(['scope:product.read'])->get('/product', 'ProductController@index');
 

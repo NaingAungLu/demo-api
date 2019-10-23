@@ -498,8 +498,8 @@ class GenerateHelper
         $this->createContents(base_path("packages/$workspace/$module/src/Resources/lang/en"));
         $this->createContents(base_path("packages/$workspace/$module/src/Resources/views"));
         $this->createContents(base_path("packages/$workspace/$module/src/Resources"));
-        $this->createContents(base_path("packages/$workspace/$module/src/Rmi"));
-        $this->createContents(base_path("packages/$workspace/$module/src/Rmi/RemoteModels"));
+        // $this->createContents(base_path("packages/$workspace/$module/src/Rmi"));
+        // $this->createContents(base_path("packages/$workspace/$module/src/Rmi/RemoteModels"));
         $this->createContents(base_path("packages/$workspace/$module/src/Routes"));
 
         $custom_names['workspace'] = $workspace;
@@ -556,10 +556,10 @@ class GenerateHelper
         $file_data = " ";
         $this->createContents(base_path("packages/$workspace/$module"), "readme", $file_data, "md");
 
-        $original_data = $this->getContents("$names->blueprint_path/Demo/swagger-info.php");
-        $replace_data = $this->getReplaceData($names);
-        $file_data = $this->replaceData($original_data, $replace_data);
-        $this->createContents(base_path("packages"), "swagger-info", $file_data);
+        // $original_data = $this->getContents("$names->blueprint_path/Demo/swagger-info.php");
+        // $replace_data = $this->getReplaceData($names);
+        // $file_data = $this->replaceData($original_data, $replace_data);
+        // $this->createContents(base_path("packages"), "swagger-info", $file_data);
     }
     
     public function generateModel($names, $columns, $type, $is_overwrite=false) {
@@ -631,7 +631,11 @@ class GenerateHelper
         $replace_data = $this->getReplaceData($names);
         $view1 = $this->replaceData($original_data, $replace_data);
         
-        $original_data = $this->getContents(base_path('routes') . "/api.php");
+        if($names->workspace == "app") {
+            $original_data = $this->getContents(base_path('routes') . "/api.php");
+        } else {
+            $original_data = $this->getContents("$names->base_path/Routes" . "/api.php");
+        }
         if(Str::contains($original_data, [$names->model_name . 'Controller'])) {
             $this->info("Already Exist Route");
             return;
@@ -646,7 +650,12 @@ class GenerateHelper
         } else if($type == self::TYPE_PRINT_ALL) {
             $this->info($file_data);
         } else if($type == self::TYPE_WRITE) {
-            $this->createContents(base_path('routes'), "api", $file_data, 'php', $is_overwrite);
+
+            if($names->workspace == "app") {
+                $this->createContents(base_path('routes'), "api", $file_data, 'php', $is_overwrite);
+            } else {
+                $this->createContents("$names->base_path/Routes", "api", $file_data, 'php', $is_overwrite);
+            }
         }
     }
 
@@ -1008,7 +1017,13 @@ class GenerateHelper
         } else if($type == self::TYPE_PRINT_ALL) {
             $this->info($file_data);
         } else if($type == self::TYPE_WRITE) {
-            $this->createContents("$names->base_path/Http/Controllers", "{$names->model_name}Controller", $file_data, 'php', $is_overwrite);
+
+            if($names->workspace == "app") {
+               $this->createContents("$names->base_path/Http/Controllers", "{$names->model_name}Controller", $file_data, 'php', $is_overwrite);
+            } else {
+                $this->createContents("$names->base_path/Controllers", "{$names->model_name}Controller", $file_data, 'php', $is_overwrite);
+            }
+            
         }
     }
 

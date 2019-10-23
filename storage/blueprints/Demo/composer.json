@@ -1,8 +1,8 @@
 {
     "name": "@workspace/@module",
-    "description": "@workspace_name @module_title",
+    "description": "@module_title",
     "type": "library",
-    "license": "Licensed to @workspace_name Technology",
+    "license": "Licensed to @workspace_name",
     "minimum-stability": "dev",
     "repositories": [
     ],

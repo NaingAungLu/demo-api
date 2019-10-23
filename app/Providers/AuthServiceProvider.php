@@ -6,8 +6,6 @@ use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-// use App\Models\PermissionScope;
-
 use Schema;
 
 class AuthServiceProvider extends ServiceProvider
@@ -29,17 +27,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        // if(Schema::hasTable('permission_scopes')) {
-
-        //     $scopes = PermissionScope::select(['scope', 'scope_name'])->where('status', config('constants.STATUS.ACTIVE'))->get();
-
-        //     $scopes = $scopes->mapWithKeys(function ($item) {
-        //         return [$item->scope => $item->name];
-        //     });
-
-        //     Passport::$scopes = array_merge(Passport::$scopes, $scopes->all());
-        // }
 
         Passport::routes();
         

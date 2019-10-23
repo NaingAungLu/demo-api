@@ -179,7 +179,7 @@ return [
         \Pion\Laravel\ChunkUpload\Providers\ChunkUploadServiceProvider::class,
         // Jenssegers\Mongodb\MongodbServiceProvider::class,
         Chumper\Zipper\ZipperServiceProvider::class,
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class 
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
     ],
 

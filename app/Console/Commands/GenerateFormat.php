@@ -55,6 +55,23 @@ class GenerateFormat extends Command
 
         $custom_names['workspace'] = "app";
 
+        // if(!is_dir(base_path('packages'))) {
+        //     $this->error('Package Path not found');
+        //     exit;
+        // }
+        // $workspaceArr = array_slice(scandir(base_path('packages')), 2);
+        // $workspaceArr = array_diff($workspaceArr, array('swagger-info.php'));
+        // if(sizeof($workspaceArr) > 1) {
+        //     $custom_names['workspace'] = $this->choice('Please choose workspace?', $workspaceArr);
+        //     $workspace = $custom_names['workspace'];
+        // } else {
+        //     $workspace = array_last($workspaceArr);
+        // }
+        // $moduleArr = array_slice(scandir(base_path('packages' . DIRECTORY_SEPARATOR . $workspace)), 2);
+        // if(sizeof($moduleArr) > 1) {
+        //     $custom_names['module'] = $this->choice('Please choose module?', $moduleArr);
+        // }
+        
         $type = GenerateHelper::TYPE_WRITE;
         if($options['type']) {
             $type = $options['type'];
