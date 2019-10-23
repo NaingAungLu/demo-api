@@ -1,0 +1,254 @@
+[2019-10-23 06:34:29] local.ERROR: Class DatabaseSeeder does not exist {"exception":"[object] (ReflectionException(code: -1): Class DatabaseSeeder does not exist at /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php:788)
+[stacktrace]
+#0 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(788): ReflectionClass->__construct('DatabaseSeeder')
+#1 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(667): Illuminate\\Container\\Container->build('DatabaseSeeder')
+#2 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(615): Illuminate\\Container\\Container->resolve('DatabaseSeeder', Array)
+#3 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(767): Illuminate\\Container\\Container->make('DatabaseSeeder', Array)
+#4 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(76): Illuminate\\Foundation\\Application->make('DatabaseSeeder')
+#5 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(63): Illuminate\\Database\\Console\\Seeds\\SeedCommand->getSeeder()
+#6 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php(122): Illuminate\\Database\\Console\\Seeds\\SeedCommand->Illuminate\\Database\\Console\\Seeds\\{closure}()
+#7 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(64): Illuminate\\Database\\Eloquent\\Model::unguarded(Object(Closure))
+#8 [internal function]: Illuminate\\Database\\Console\\Seeds\\SeedCommand->handle()
+#9 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#10 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#11 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#12 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#13 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#14 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Command/Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArrayInput), Object(Illuminate\\Console\\OutputStyle))
+#15 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArrayInput), Object(Illuminate\\Console\\OutputStyle))
+#16 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(198): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArrayInput), Object(Illuminate\\Console\\OutputStyle))
+#17 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(78): Illuminate\\Console\\Command->call('db:seed', Array)
+#18 [internal function]: Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#19 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#20 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#21 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#22 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#23 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#24 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Command/Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#25 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#26 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Application.php(915): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#27 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Application.php(272): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Migrations\\MigrateCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#29 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#30 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(133): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#31 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#32 {main}
+"} 
+[2019-10-23 06:34:39] local.ERROR: Class UserTableSeeder does not exist {"exception":"[object] (ReflectionException(code: -1): Class UserTableSeeder does not exist at /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php:788)
+[stacktrace]
+#0 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(788): ReflectionClass->__construct('UserTableSeeder')
+#1 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(667): Illuminate\\Container\\Container->build('UserTableSeeder')
+#2 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(615): Illuminate\\Container\\Container->resolve('UserTableSeeder', Array)
+#3 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(767): Illuminate\\Container\\Container->make('UserTableSeeder', Array)
+#4 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(70): Illuminate\\Foundation\\Application->make('UserTableSeeder')
+#5 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(38): Illuminate\\Database\\Seeder->resolve('UserTableSeeder')
+#6 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/database/seeds/DatabaseSeeder.php(14): Illuminate\\Database\\Seeder->call('UserTableSeeder')
+#7 [internal function]: DatabaseSeeder->run()
+#8 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#9 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#10 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#11 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#12 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(124): Illuminate\\Container\\Container->call(Array)
+#13 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(63): Illuminate\\Database\\Seeder->__invoke()
+#14 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php(122): Illuminate\\Database\\Console\\Seeds\\SeedCommand->Illuminate\\Database\\Console\\Seeds\\{closure}()
+#15 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(64): Illuminate\\Database\\Eloquent\\Model::unguarded(Object(Closure))
+#16 [internal function]: Illuminate\\Database\\Console\\Seeds\\SeedCommand->handle()
+#17 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#18 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#19 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#20 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#21 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#22 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Command/Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArrayInput), Object(Illuminate\\Console\\OutputStyle))
+#23 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArrayInput), Object(Illuminate\\Console\\OutputStyle))
+#24 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(198): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArrayInput), Object(Illuminate\\Console\\OutputStyle))
+#25 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(78): Illuminate\\Console\\Command->call('db:seed', Array)
+#26 [internal function]: Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#27 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#28 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#29 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#30 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#31 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#32 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Command/Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#33 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#34 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Application.php(915): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#35 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Application.php(272): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Migrations\\MigrateCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#36 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#37 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#38 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(133): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#39 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#40 {main}
+"} 
+[2019-10-23 06:34:47] local.ERROR: Class UserTableSeeder does not exist {"exception":"[object] (ReflectionException(code: -1): Class UserTableSeeder does not exist at /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php:788)
+[stacktrace]
+#0 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(788): ReflectionClass->__construct('UserTableSeeder')
+#1 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(667): Illuminate\\Container\\Container->build('UserTableSeeder')
+#2 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(615): Illuminate\\Container\\Container->resolve('UserTableSeeder', Array)
+#3 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(767): Illuminate\\Container\\Container->make('UserTableSeeder', Array)
+#4 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(70): Illuminate\\Foundation\\Application->make('UserTableSeeder')
+#5 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(38): Illuminate\\Database\\Seeder->resolve('UserTableSeeder')
+#6 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/database/seeds/DatabaseSeeder.php(14): Illuminate\\Database\\Seeder->call('UserTableSeeder')
+#7 [internal function]: DatabaseSeeder->run()
+#8 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#9 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#10 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#11 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#12 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(124): Illuminate\\Container\\Container->call(Array)
+#13 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(63): Illuminate\\Database\\Seeder->__invoke()
+#14 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php(122): Illuminate\\Database\\Console\\Seeds\\SeedCommand->Illuminate\\Database\\Console\\Seeds\\{closure}()
+#15 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(64): Illuminate\\Database\\Eloquent\\Model::unguarded(Object(Closure))
+#16 [internal function]: Illuminate\\Database\\Console\\Seeds\\SeedCommand->handle()
+#17 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#18 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#19 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#20 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#21 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#22 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Command/Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArrayInput), Object(Illuminate\\Console\\OutputStyle))
+#23 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArrayInput), Object(Illuminate\\Console\\OutputStyle))
+#24 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(198): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArrayInput), Object(Illuminate\\Console\\OutputStyle))
+#25 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(78): Illuminate\\Console\\Command->call('db:seed', Array)
+#26 [internal function]: Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#27 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(32): call_user_func_array(Array, Array)
+#28 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#29 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#30 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Container/Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#31 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate\\Container\\Container->call(Array)
+#32 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Command/Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#33 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#34 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Application.php(915): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#35 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Application.php(272): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Migrations\\MigrateCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#36 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/symfony/console/Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#37 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Console/Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#38 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(133): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#39 /Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#40 {main}
+"} 
+[2019-10-23 06:37:56] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  
+[2019-10-23 06:38:36] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  
+[2019-10-23 06:39:54] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  
+[2019-10-23 06:40:27] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  
+[2019-10-23 06:42:14] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  
+[2019-10-23 06:44:56] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  
+[2019-10-23 07:05:29] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  
+[2019-10-23 07:06:08] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  
+[2019-10-23 07:06:40] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  
+[2019-10-23 07:07:45] local.DEBUG: array (
+  'table_name' => 'products',
+  'model_name' => 'Product',
+  'variable_name' => 'product',
+  'title' => 'Product',
+  'route' => 'product',
+  'storage_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/app/public',
+  'blueprint_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/storage/blueprints',
+  'workspace' => 'app',
+  'workspace_name' => 'App',
+  'namespace' => 'App',
+  'base_path' => '/Users/naingaunglu/Documents/NAL/Workspace/Work/demo-api/app',
+)  

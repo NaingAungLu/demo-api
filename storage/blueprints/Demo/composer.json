@@ -1,0 +1,19 @@
+{
+    "name": "@workspace/@module",
+    "description": "@workspace_name @module_title",
+    "type": "library",
+    "license": "Licensed to @workspace_name Technology",
+    "minimum-stability": "dev",
+    "repositories": [
+    ],
+    "require": {
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "@workspace_name\\@module_name\\@module_nameServiceProvider"
+            ]
+        }
+    },
+    "prefer-stable": true
+}
