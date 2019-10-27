@@ -30,5 +30,10 @@ class PackageController extends Controller
         ]))->getJson();
     }
 
-
+    public function show(Request $request, $id)
+    {
+        return (new APIResponse(0, 'Success', [
+            'pack_list' => new PackageRepresentation($this->package->show($id))
+        ]))->getJson();
+    }
 }

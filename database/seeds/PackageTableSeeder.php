@@ -19,28 +19,31 @@ class PackageTableSeeder extends Seeder
 
         $faker = new Faker\Generator();
 
-        $faker->addProvider(new Faker\Provider\Internet($faker));
+        $faker->addProvider(new Faker\Provider\Base($faker));
+        $faker->addProvider(new Faker\Provider\Uuid($faker));
+        $faker->addProvider(new Faker\Provider\Lorem($faker));
         $faker->addProvider(new Faker\Provider\en_US\Person($faker));
+
 
         $data = [];
 
         for ($i = 0; $i < 30; $i++) {
 
             $data[] = [
-                'disp_order' => 1,
-                'pack_id' => 1,
-                'pack_name' => 1,
-                'pack_description' => 1,
-                'pack_type' => 1,
-                'total_credit' => 1,
-                'tag_name' => 1,
-                'validity_month' => 1,
-                'pack_price' => 1,
-                'newbie_first_attend' => 1,
-                'newbie_addition_credit' => 1,
-                'newbie_note' => 1,
-                'pack_alias' => 1,
-                'estimate_price' => 1,
+                'disp_order' => $faker->numberBetween($min = 1, $max = 30),
+                'pack_id' => $faker->uuid($min = 1, $max = 30),
+                'pack_name' => $faker->word,
+                'pack_description' => $faker->word,
+                'pack_type' => $faker->word,
+                'total_credit' => $faker->numberBetween($min = 10, $max = 1000),
+                'tag_name' => $faker->word,
+                'validity_month' => $faker->numberBetween($min = 10, $max = 1000),
+                'pack_price' => $faker->numberBetween($min = 10, $max = 1000),
+                'newbie_first_attend' => $faker->numberBetween($min = 0, $max = 1),
+                'newbie_addition_credit' => $faker->numberBetween($min = 10, $max = 1000),
+                'newbie_note' => $faker->word,
+                'pack_alias' => $faker->word,
+                'estimate_price' => $faker->numberBetween($min = 10, $max = 1000),
 
                 'status' => Config::get('constants.STATUS.ACTIVE'),
                 'created_by' => Config::get('constants.OWNER'),

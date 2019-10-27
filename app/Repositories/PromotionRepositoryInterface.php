@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-interface PackageRepositoryInterface
+interface PromotionRepositoryInterface
 {
     public function all();
 

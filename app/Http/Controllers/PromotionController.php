@@ -4,31 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Repositories\PackageRepositoryInterface;
-use App\Representations\PackageRepresentation;
-use App\Representations\PackageRepresentationCollection;
+use App\Repositories\PromotionRepositoryInterface;
+use App\Representations\PromotionRepresentation;
+use App\Representations\PromotionRepresentationCollection;
 
 use App\Library\APIResponse;
 
 class PromotionController extends Controller
 {
-    protected $package;
+    protected $promotion;
     
-    public function __construct(PackageRepositoryInterface $package)
+    public function __construct(PromotionRepositoryInterface $promotion)
     {
-        $this->package = $package;
+        $this->promotion = $promotion;
     }
 
     public function index()
     {
         return (new APIResponse(0, 'Success', [
-            'total_item' => $this->package->total(),
-            'total_page' => 1,
-            'mem_tier' => "newbie",
-            'total_expired_class' => 0,
-            'pack_list' => new PackageRepresentationCollection($this->package->all())
+            'total_item' => $this->promotion->total(),
+            'promotion_list' => new PromotionRepresentationCollection($this->promotion->all())
         ]))->getJson();
     }
 
-
+    public function show(Request $request, $id)
+    {
+        return (new APIResponse(0, 'Success', [
+            'promotion_list' => new PromotionRepresentation($this->promotion->show($id))
+        ]))->getJson();
+    }
 }

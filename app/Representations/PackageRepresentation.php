@@ -20,14 +20,11 @@ class PackageRepresentation extends JsonResource
 			'tag_name' => $this->when($this->tag_name, $this->tag_name),
 			'validity_month' => $this->when($this->validity_month, $this->validity_month),
 			'pack_price' => $this->when($this->pack_price, $this->pack_price),
-			'newbie_first_attend' => $this->when($this->newbie_first_attend, $this->newbie_first_attend),
+			'newbie_first_attend' => $this->newbie_first_attend ? true : false,
 			'newbie_addition_credit' => $this->when($this->newbie_addition_credit, $this->newbie_addition_credit),
 			'newbie_note' => $this->when($this->newbie_note, $this->newbie_note),
 			'pack_alias' => $this->when($this->pack_alias, $this->pack_alias),
 			'estimate_price' => $this->when($this->estimate_price, $this->estimate_price),
-			'status' => $this->when($this->status, $this->status),
-			'created_by' => $this->when($this->created_by, $this->created_by),
-			'last_updated_by' => $this->when($this->last_updated_by, $this->last_updated_by),
-        ];
+		];
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Repositories;
 
-interface PackageRepositoryInterface
+interface OrderRepositoryInterface
 {
     public function all();
 
     public function total();
+
+    public function save($data);
 
     public function show($id);
 }

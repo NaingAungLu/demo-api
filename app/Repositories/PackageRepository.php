@@ -15,4 +15,9 @@ class PackageRepository implements PackageRepositoryInterface
     {
    		return Package::count();
     }
+
+    public function show($id)
+    {
+   		return Package::find($id);
+    }
 }

@@ -17,6 +17,16 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\PackageRepositoryInterface',
             'App\Repositories\PackageRepository'
         );
+
+        $this->app->bind(
+            'App\Repositories\PromotionRepositoryInterface',
+            'App\Repositories\PromotionRepository'
+        );
+
+        $this->app->bind(
+            'App\Repositories\OrderRepositoryInterface',
+            'App\Repositories\OrderRepository'
+        );
     }
 
     /**

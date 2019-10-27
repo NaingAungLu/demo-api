@@ -4,52 +4,55 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Repositories\PackageRepositoryInterface;
-use App\Representations\PackageRepresentation;
-use App\Representations\PackageRepresentationCollection;
+use App\Repositories\OrderRepositoryInterface;
+
+use App\Models\Promotion;
+use App\Models\Package;
+use App\Representations\OrderRepresentation;
+use App\Representations\OrderRepresentationCollection;
 
 use App\Library\APIResponse;
 
+use DB;
+use Log;
+use Config;
+use Storage;
+use Validator;
+use Carbon\Carbon;
+
 class OrderController extends Controller
 {
-    protected $package;
+    protected $order;
     
-    public function __construct(PackageRepositoryInterface $package)
+    public function __construct(OrderRepositoryInterface $order)
     {
-        $this->package = $package;
+        $this->order = $order;
     }
 
     public function index()
     {
         return (new APIResponse(0, 'Success', [
-            'total_item' => $this->package->total(),
-            'total_page' => 1,
-            'mem_tier' => "newbie",
-            'total_expired_class' => 0,
-            'pack_list' => new PackageRepresentationCollection($this->package->all())
+            'total_item' => $this->order->total(),
+            'order_list' => new OrderRepresentationCollection($this->order->all())
         ]))->getJson();
     }
 
-    public function store()
+    public function show(Request $request, $id)
+    {
+        return (new APIResponse(0, 'Success', [
+            'promotion_list' => new OrderRepresentation($this->order->show($id))
+        ]))->getJson();
+    }
+
+    public function store(Request $request)
     {
         $loggedinUser = $request->user();
 
         $data = $request->json()->all();
 
         $validator = Validator::make($data, [
-            'disp_order' => 'required|integer',
-            'pack_id' => 'required|string',
-            'pack_name' => 'required|string',
-            'pack_description' => 'required|string',
-            'total_credit' => 'required|integer',
-            'tag_name' => 'required|string',
-            'validity_month' => 'required|integer',
-            'pack_price' => 'nullable|numeric',
-            'newbie_first_attend' => 'required|integer',
-            'newbie_addition_credit' => 'required|integer',
-            'newbie_note' => 'required|string',
-            'pack_alias' => 'required|string',
-            'estimate_price' => 'nullable|numeric', 
+            'package_id' => 'required|integer',
+            'promo_code' => 'nullable|string',
         ], trans('validation'), trans('validation.attributes'));
         
         if($validator->fails()) {
@@ -58,42 +61,40 @@ class OrderController extends Controller
             foreach($errors->all() as $message) {
                 $error_messages[] = $message;
             }
-            return response()->json($error_messages, 400);
+            return (new APIResponse(400, 'Require Data'))->getJson();
         }
 
-        $newPackage = [
-            'disp_order' => $data['disp_order'],
-            'pack_id' => $data['pack_id'],
-            'pack_name' => $data['pack_name'],
-            'pack_description' => $data['pack_description'],
-            'total_credit' => $data['total_credit'],
-            'tag_name' => $data['tag_name'],
-            'validity_month' => $data['validity_month'],
-            'newbie_first_attend' => $data['newbie_first_attend'],
-            'newbie_addition_credit' => $data['newbie_addition_credit'],
-            'newbie_note' => $data['newbie_note'],
-            'pack_alias' => $data['pack_alias'],
+        $package = Package::where('id', $data['package_id']);
+        if($package->doesntExist()) {
+            return (new APIResponse(400, 'Invalid Package id'))->getJson();
+        }
+        $package = $package->first();
 
+        $newOrder = [
+            'package_id' => $data['package_id'],
+            'order_date' => Carbon::now(),
+            'grand_total' => $package['pack_price'],
+            
             'status' => Config::get('constants.STATUS.ACTIVE'),
             'created_by' => $loggedinUser['id'],
             'last_updated_by' => $loggedinUser['id'],
         ];
 
-        if(array_key_exists('pack_price', $data) && $data['pack_price']) {
-            $newPackage['pack_price'] = $data['pack_price'];
+        if(array_key_exists('promo_code', $data) && $data['promo_code']) {
+            
+            $promotion = Promotion::where('promo_code', $data['promo_code']);
+            if($promotion->doesntExist()) {
+                return (new APIResponse(400, 'Invalid Promo Code'))->getJson();
+            } 
+            $promotion = $promotion->first();
+            $newOrder['grand_total'] = $newOrder['grand_total'] - $promotion['amount'];
         }
 
-        if(array_key_exists('estimate_price', $data) && $data['estimate_price']) {
-            $newPackage['estimate_price'] = $data['estimate_price'];
+        if(!$this->order->save($newOrder)) {
+            return (new APIResponse(0, 'Internal Server Error'))->getJson();
         }
 
-        $package = Package::create($newPackage);
-
-        if(!$package) {
-            return response()->json([trans('messages.internal_error')], 500);
-        }
-
-        return new PackageRepresentation($package);
+        return (new APIResponse(0, 'Success'))->getJson();
     }
 
 

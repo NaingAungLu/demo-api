@@ -23,35 +23,23 @@ Route::group(['middleware' => \Barryvdh\Cors\HandleCors::class, 'prefix' => 'v1'
     });
 
 	Route::middleware([CheckToken::class])->group(function () {
-		Route::middleware(['scope:product.read'])->get('/product', 'ProductController@index');
-
-		Route::middleware(['scope:product.read'])->get('/product/{id}', 'ProductController@show');
-
-		Route::middleware(['scope:product.write'])->post('/product', 'ProductController@store');
-
-		Route::middleware(['scope:product.write'])->post('/product/{id}', 'ProductController@update');
-
-		Route::middleware(['scope:product.remove'])->delete('/product/{id}', 'ProductController@destroy');
-
-		Route::middleware(['scope:product.remove'])->delete('/product/{id}/permanent-delete', 'ProductController@permanentDelete');
-
-		Route::middleware(['scope:product.write'])->post('/product/{id}/restore', 'ProductController@restore');
-	});
-
-	Route::middleware([CheckToken::class])->group(function () {
 		Route::middleware(['scope:package.read'])->get('/package', 'PackageController@index');
 
 		Route::middleware(['scope:package.read'])->get('/package/{id}', 'PackageController@show');
+	});
 
-		Route::middleware(['scope:package.write'])->post('/package', 'PackageController@store');
+	Route::middleware([CheckToken::class])->group(function () {
+		Route::middleware(['scope:promotion.read'])->get('/promotion', 'PromotionController@index');
 
-		Route::middleware(['scope:package.write'])->post('/package/{id}', 'PackageController@update');
+		Route::middleware(['scope:promotion.read'])->get('/promotion/{id}', 'PromotionController@show');
+	});
 
-		Route::middleware(['scope:package.remove'])->delete('/package/{id}', 'PackageController@destroy');
+	Route::middleware([CheckToken::class])->group(function () {
+		Route::middleware(['scope:order.read'])->get('/order', 'OrderController@index');
 
-		Route::middleware(['scope:package.remove'])->delete('/package/{id}/permanent-delete', 'PackageController@permanentDelete');
+		Route::middleware(['scope:order.read'])->get('/order/{id}', 'OrderController@show');
 
-		Route::middleware(['scope:package.write'])->post('/package/{id}/restore', 'PackageController@restore');
+		Route::middleware(['scope:order.write'])->post('/order', 'OrderController@store');
 	});
 
 	#EndLine
