@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Order extends Model
 {
     protected $guarded = ['id'];
-    protected $table = 'products';
+    protected $table = 'orders';
     public $timestamps = true;
 }

@@ -11,4 +11,6 @@ return [
         'ACTIVE' => 1,
 		'INACTIVE' => 2
     ],
+
+    'GST' => 7,
 ];

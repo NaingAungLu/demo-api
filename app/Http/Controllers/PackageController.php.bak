@@ -1,0 +1,582 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Models\Package;
+
+use App\Representations\PackageRepresentation;
+use App\Representations\PackageRepresentationCollection;
+
+use DB;
+use Log;
+use Config;
+use Storage;
+use Validator;
+use Carbon\Carbon;
+
+class PackageController extends Controller
+{
+    /**
+        * @OA\Get(
+        *    description     = "Get Package List",
+        *    summary         = "Get Package List",
+        *    operationId     = "getPackageList",
+        *    tags            = {"Package"},
+        *    path            = "/package",
+        *    security        = {{ "passport": {"*"} }},
+        *    @OA\Parameter(
+        *        name        = "page",
+        *        description = "Page",
+        *        in          = "query",
+        *        required    = false,
+        *        @OA\Schema(
+        *            type    = "string"
+        *        ),
+        *    ),
+        *    @OA\Parameter(
+        *        name        = "per_page",
+        *        description = "Per Page",
+        *        in          = "query",
+        *        required    = false,
+        *        @OA\Schema(
+        *            type    = "integer"
+        *        ),
+        *    ),
+        *    @OA\Parameter(
+        *        name        = "keyword",
+        *        description = "Keyword",
+        *        in          = "query",
+        *        required    = false,
+        *        @OA\Schema(
+        *            type    = "string"
+        *        ),
+        *    ),
+        *    @OA\Response(
+        *        response    = 200,
+        *        description = "Successful"
+        *    )
+        * )
+    */
+    public function index(Request $request)
+    {
+        $loggedinUser = $request->user();
+
+        $page = $request->query('page');
+        $per_page = $request->query('per_page');
+        $keyword = $request->query('keyword');
+
+		$disp_order = $request->query('disp_order');
+		$pack_id = $request->query('pack_id');
+		$pack_name = $request->query('pack_name');
+		$pack_description = $request->query('pack_description');
+		$total_credit = $request->query('total_credit');
+		$tag_name = $request->query('tag_name');
+		$validity_month = $request->query('validity_month');
+		$pack_price = $request->query('pack_price');
+		$newbie_first_attend = $request->query('newbie_first_attend');
+		$newbie_addition_credit = $request->query('newbie_addition_credit');
+		$newbie_note = $request->query('newbie_note');
+		$pack_alias = $request->query('pack_alias');
+		$estimate_price = $request->query('estimate_price');
+        
+        if(!$page) $page = 1;
+        if(!$per_page) $per_page = Config::get('constants.LIMIT_PER_PAGE');
+
+        $packages = Package::select();
+
+        if($keyword) {
+
+        }
+
+
+		if($disp_order) {
+			$packages = $packages->where('disp_order', $disp_order);
+		}
+
+		if($pack_id) {
+			$packages = $packages->where('pack_id', 'like', "%{$pack_id}%");
+		}
+
+		if($pack_name) {
+			$packages = $packages->where('pack_name', 'like', "%{$pack_name}%");
+		}
+
+		if($pack_description) {
+			$packages = $packages->where('pack_description', 'like', "%{$pack_description}%");
+		}
+
+		if($total_credit) {
+			$packages = $packages->where('total_credit', $total_credit);
+		}
+
+		if($tag_name) {
+			$packages = $packages->where('tag_name', 'like', "%{$tag_name}%");
+		}
+
+		if($validity_month) {
+			$packages = $packages->where('validity_month', $validity_month);
+		}
+
+		if($pack_price) {
+			$packages = $packages->where('pack_price', $pack_price);
+		}
+
+		if($newbie_first_attend) {
+			$packages = $packages->where('newbie_first_attend', $newbie_first_attend);
+		}
+
+		if($newbie_addition_credit) {
+			$packages = $packages->where('newbie_addition_credit', $newbie_addition_credit);
+		}
+
+		if($newbie_note) {
+			$packages = $packages->where('newbie_note', 'like', "%{$newbie_note}%");
+		}
+
+		if($pack_alias) {
+			$packages = $packages->where('pack_alias', 'like', "%{$pack_alias}%");
+		}
+
+		if($estimate_price) {
+			$packages = $packages->where('estimate_price', $estimate_price);
+		}
+
+        $packages = $packages->orderBy('updated_at', 'DESC');
+
+        if($page == 'all') {
+            $packages = $packages->get();
+
+        } else {
+            $packages = $packages->paginate($per_page, ['*'], 'page', $page);
+        }
+
+        return new PackageRepresentationCollection($packages);
+    }
+
+    /**
+        * @OA\Post(
+        *    description = "Create Package",
+        *    summary     = "Create Package",
+        *    operationId = "createPackage",
+        *    tags        = {"Package"},
+        *    path        = "/package",
+        *    security        = {{ "passport": {"*"} }},
+        *    @OA\RequestBody(
+        *        @OA\MediaType(
+        *            mediaType = "application/json",
+        *            @OA\Schema(
+		*                @OA\Property(property = "disp_order", type = "integer"),
+		*                @OA\Property(property = "pack_id", type = "string"),
+		*                @OA\Property(property = "pack_name", type = "string"),
+		*                @OA\Property(property = "pack_description", type = "string"),
+		*                @OA\Property(property = "total_credit", type = "integer"),
+		*                @OA\Property(property = "tag_name", type = "string"),
+		*                @OA\Property(property = "validity_month", type = "integer"),
+		*                @OA\Property(property = "pack_price", type = "integer"),
+		*                @OA\Property(property = "newbie_first_attend", type = "integer"),
+		*                @OA\Property(property = "newbie_addition_credit", type = "integer"),
+		*                @OA\Property(property = "newbie_note", type = "string"),
+		*                @OA\Property(property = "pack_alias", type = "string"),
+		*                @OA\Property(property = "estimate_price", type = "integer"),
+        *            )
+        *        )
+        *    ),
+        *    @OA\Response(
+        *        response    = 200,
+        *        description = "Successful"
+        *    )
+        * )
+    */
+    public function store(Request $request)
+    {
+        $loggedinUser = $request->user();
+
+        $data = $request->json()->all();
+
+        $validator = Validator::make($data, [
+			'disp_order' => 'required|integer',
+			'pack_id' => 'required|string',
+			'pack_name' => 'required|string',
+			'pack_description' => 'required|string',
+			'total_credit' => 'required|integer',
+			'tag_name' => 'required|string',
+			'validity_month' => 'required|integer',
+			'pack_price' => 'nullable|numeric',
+			'newbie_first_attend' => 'required|integer',
+			'newbie_addition_credit' => 'required|integer',
+			'newbie_note' => 'required|string',
+			'pack_alias' => 'required|string',
+			'estimate_price' => 'nullable|numeric', 
+        ], trans('validation'), trans('validation.attributes'));
+        
+        if($validator->fails()) {
+            $error_messages = [];
+            $errors = $validator->errors();
+            foreach($errors->all() as $message) {
+                $error_messages[] = $message;
+            }
+            return response()->json($error_messages, 400);
+        }
+
+        $newPackage = [
+			'disp_order' => $data['disp_order'],
+			'pack_id' => $data['pack_id'],
+			'pack_name' => $data['pack_name'],
+			'pack_description' => $data['pack_description'],
+			'total_credit' => $data['total_credit'],
+			'tag_name' => $data['tag_name'],
+			'validity_month' => $data['validity_month'],
+			'newbie_first_attend' => $data['newbie_first_attend'],
+			'newbie_addition_credit' => $data['newbie_addition_credit'],
+			'newbie_note' => $data['newbie_note'],
+			'pack_alias' => $data['pack_alias'],
+
+			'status' => Config::get('constants.STATUS.ACTIVE'),
+			'created_by' => $loggedinUser['id'],
+			'last_updated_by' => $loggedinUser['id'],
+        ];
+
+		if(array_key_exists('pack_price', $data) && $data['pack_price']) {
+			$newPackage['pack_price'] = $data['pack_price'];
+		}
+
+		if(array_key_exists('estimate_price', $data) && $data['estimate_price']) {
+			$newPackage['estimate_price'] = $data['estimate_price'];
+		}
+
+        $package = Package::create($newPackage);
+
+        if(!$package) {
+            return response()->json([trans('messages.internal_error')], 500);
+        }
+
+        return new PackageRepresentation($package);
+    }
+
+    /**
+        * @OA\Get(
+        *    description     = "Get Package By Id",
+        *    summary         = "Get Package By Id",
+        *    operationId     = "getPackageById",
+        *    tags            = {"Package"},
+        *    path            = "/package/{id}",
+        *    security        = {{ "passport": {"*"} }},
+        *    @OA\Parameter(
+        *        name        = "id",
+        *        description = "ID",
+        *        in          = "path",
+        *        required    = true,
+        *        @OA\Schema(
+        *            type    = "integer"
+        *        ),
+        *    ),
+        *    @OA\Response(
+        *        response    = 200,
+        *        description = "Successful"
+        *    )
+        * )
+    */
+    public function show(Request $request, $id)
+    {
+        $loggedinUser = $request->user();
+
+        $package = Package::where('id', $id);
+      
+        if($package->doesntExist()) {
+            return response()->json([trans('messages.invalid', ['name' => 'Package'])], 400);
+        }
+
+        $package = $package->first();
+
+        return new PackageRepresentation($package);
+    }
+
+    /**
+        * @OA\Post(
+        *    description     = "Update Package",
+        *    summary         = "Update Package",
+        *    operationId     = "updatePackage",
+        *    tags            = {"Package"},
+        *    path            = "/package/{id}",
+        *    security        = {{ "passport": {"*"} }},
+        *    @OA\Parameter(
+        *        name        = "id",
+        *        description = "ID",
+        *        in          = "path",
+        *        required    = true,
+        *        @OA\Schema(
+        *            type    = "integer"
+        *        ),
+        *    ),
+        *    @OA\RequestBody(
+        *        @OA\MediaType(
+        *            mediaType = "application/json",
+        *            @OA\Schema(
+		*                @OA\Property(property = "disp_order", type = "integer"),
+		*                @OA\Property(property = "pack_id", type = "string"),
+		*                @OA\Property(property = "pack_name", type = "string"),
+		*                @OA\Property(property = "pack_description", type = "string"),
+		*                @OA\Property(property = "total_credit", type = "integer"),
+		*                @OA\Property(property = "tag_name", type = "string"),
+		*                @OA\Property(property = "validity_month", type = "integer"),
+		*                @OA\Property(property = "pack_price", type = "integer"),
+		*                @OA\Property(property = "newbie_first_attend", type = "integer"),
+		*                @OA\Property(property = "newbie_addition_credit", type = "integer"),
+		*                @OA\Property(property = "newbie_note", type = "string"),
+		*                @OA\Property(property = "pack_alias", type = "string"),
+		*                @OA\Property(property = "estimate_price", type = "integer"),
+        *            )
+        *        )
+        *    ),
+        *    @OA\Response(
+        *        response    = 200,
+        *        description = "Successful"
+        *    )
+        * )
+    */
+    public function update(Request $request, $id)
+    {
+        $loggedinUser = $request->user();
+
+        $package = Package::where('id', $id);
+  
+        if($package->doesntExist()) {
+            return response()->json([trans('messages.invalid', ['name' => 'Package'])], 400);
+        }
+
+        $package = $package->first();
+
+        $data = $request->json()->all();
+
+        $validator = Validator::make($data, [
+			'disp_order' => 'nullable|integer',
+			'pack_id' => 'nullable|string',
+			'pack_name' => 'nullable|string',
+			'pack_description' => 'nullable|string',
+			'total_credit' => 'nullable|integer',
+			'tag_name' => 'nullable|string',
+			'validity_month' => 'nullable|integer',
+			'pack_price' => 'nullable|numeric',
+			'newbie_first_attend' => 'nullable|integer',
+			'newbie_addition_credit' => 'nullable|integer',
+			'newbie_note' => 'nullable|string',
+			'pack_alias' => 'nullable|string',
+			'estimate_price' => 'nullable|numeric',    
+        ], trans('validation'), trans('validation.attributes'));
+        
+        if($validator->fails()) {
+            $error_messages = [];
+            $errors = $validator->errors();
+            foreach($errors->all() as $message) {
+                $error_messages[] = $message;
+            }
+            return response()->json($error_messages, 400);
+        }
+
+		$updateData = [
+			'last_updated_by' => $loggedinUser['id']
+		];
+
+		if(array_key_exists('disp_order', $data) && $data['disp_order']) {
+			$updateData['disp_order'] = $data['disp_order'];
+		}
+
+		if(array_key_exists('pack_id', $data) && $data['pack_id']) {
+			$updateData['pack_id'] = $data['pack_id'];
+		}
+
+		if(array_key_exists('pack_name', $data) && $data['pack_name']) {
+			$updateData['pack_name'] = $data['pack_name'];
+		}
+
+		if(array_key_exists('pack_description', $data) && $data['pack_description']) {
+			$updateData['pack_description'] = $data['pack_description'];
+		}
+
+		if(array_key_exists('total_credit', $data) && $data['total_credit']) {
+			$updateData['total_credit'] = $data['total_credit'];
+		}
+
+		if(array_key_exists('tag_name', $data) && $data['tag_name']) {
+			$updateData['tag_name'] = $data['tag_name'];
+		}
+
+		if(array_key_exists('validity_month', $data) && $data['validity_month']) {
+			$updateData['validity_month'] = $data['validity_month'];
+		}
+
+		if(array_key_exists('pack_price', $data) && $data['pack_price']) {
+			$updateData['pack_price'] = $data['pack_price'];
+		}
+
+		if(array_key_exists('newbie_first_attend', $data) && $data['newbie_first_attend']) {
+			$updateData['newbie_first_attend'] = $data['newbie_first_attend'];
+		}
+
+		if(array_key_exists('newbie_addition_credit', $data) && $data['newbie_addition_credit']) {
+			$updateData['newbie_addition_credit'] = $data['newbie_addition_credit'];
+		}
+
+		if(array_key_exists('newbie_note', $data) && $data['newbie_note']) {
+			$updateData['newbie_note'] = $data['newbie_note'];
+		}
+
+		if(array_key_exists('pack_alias', $data) && $data['pack_alias']) {
+			$updateData['pack_alias'] = $data['pack_alias'];
+		}
+
+		if(array_key_exists('estimate_price', $data) && $data['estimate_price']) {
+			$updateData['estimate_price'] = $data['estimate_price'];
+		}
+
+		if(array_key_exists('status', $data) && $data['status']) {
+			$updateData['status'] = $data['status'];
+		}
+
+        if(!$package->update($updateData)) {
+            return response()->json([trans('messages.internal_error')], 500);
+        }
+        
+        return new PackageRepresentation($package);
+    }
+
+    /**
+        * @OA\Delete(
+        *    description     = "Delete Package",
+        *    summary         = "Delete Package",
+        *    operationId     = "deletePackage",
+        *    tags            = {"Package"},
+        *    path            = "/package/{id}",
+        *    security        = {{ "passport": {"*"} }},
+        *    @OA\Parameter(
+        *        name        = "id",
+        *        description = "ID",
+        *        in          = "path",
+        *        required    = true,
+        *        @OA\Schema(
+        *            type    = "integer"
+        *        ),
+        *    ),
+        *    @OA\Response(
+        *        response    = 200,
+        *        description = "Successful"
+        *    )
+        * )
+    */
+    public function destroy(Request $request, $id)
+    {
+        $loggedinUser = $request->user();
+
+        $package = Package::where('id', $id);
+    
+        if($package->doesntExist()) {
+            return response()->json([trans('messages.invalid', ['name' => 'Package'])], 400);
+        }
+
+        $package = $package->first();
+
+        if($package['status'] == Config::get('constants.STATUS.INACTIVE')) {
+            return response()->json([trans('messages.already_destory', ['name' => 'Package'])], 400);
+        }
+
+        if(!$package->update([
+            'status' => Config::get('constants.STATUS.INACTIVE'),
+            'last_updated_by' => $loggedinUser['id']
+        ])) {
+            return response()->json([trans('messages.internal_error')], 500);
+        }
+
+        return new PackageRepresentation($package);
+    }
+
+    /**
+        * @OA\Post(
+        *    description     = "Restore Package",
+        *    summary         = "Restore Package",
+        *    operationId     = "restorePackage",
+        *    tags            = {"Package"},
+        *    path            = "/package/{id}/restore",
+        *    security        = {{ "passport": {"*"} }},
+        *    @OA\Parameter(
+        *        name        = "id",
+        *        description = "ID",
+        *        in          = "path",
+        *        required    = true,
+        *        @OA\Schema(
+        *            type    = "integer"
+        *        ),
+        *    ),
+        *    @OA\Response(
+        *        response    = 200,
+        *        description = "Successful"
+        *    )
+        * )
+    */
+    public function restore(Request $request, $id)
+    {
+        $loggedinUser = $request->user();
+
+        $package = Package::where('id', $id);
+
+        if($package->doesntExist()) {
+            return response()->json([trans('messages.invalid', ['name' => 'Package'])], 400);
+        }
+
+        $package = $package->first();
+
+        if($package['status'] == Config::get('constants.STATUS.ACTIVE')) {
+            return response()->json([trans('messages.already_restore', ['name' => 'Package'])], 400);
+        }
+
+        if(!$package->update([
+            'status' => Config::get('constants.STATUS.ACTIVE'),
+            'last_updated_by' => $loggedinUser['id']
+        ])) {
+            return response()->json([trans('messages.internal_error')], 500);
+        }
+
+        return new PackageRepresentation($package);
+    }
+
+    /**
+        * @OA\Delete(
+        *    description     = "Permanent Delete Package",
+        *    summary         = "Permanent Delete Package",
+        *    operationId     = "permanentDeletePackage",
+        *    tags            = {"Package"},
+        *    path            = "/package/{id}/permanent-delete",
+        *    security        = {{ "passport": {"*"} }},
+        *    @OA\Parameter(
+        *        name        = "id",
+        *        description = "ID",
+        *        in          = "path",
+        *        required    = true,
+        *        @OA\Schema(
+        *            type    = "integer"
+        *        ),
+        *    ),
+        *    @OA\Response(
+        *        response    = 200,
+        *        description = "Successful"
+        *    )
+        * )
+    */
+    public function permanentDelete(Request $request, $id)
+    {
+        $loggedinUser = $request->user();
+
+        $package = Package::where('id', $id);
+    
+        if($package->doesntExist()) {
+            return response()->json([trans('messages.invalid', ['name' => 'Package'])], 400);
+        }
+
+        if(!$package->delete()) {
+            return response()->json([trans('messages.internal_error')], 500);
+        }
+
+        return response()->json(["Success"], 200);
+    }
+}

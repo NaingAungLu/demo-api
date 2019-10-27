@@ -38,5 +38,21 @@ Route::group(['middleware' => \Barryvdh\Cors\HandleCors::class, 'prefix' => 'v1'
 		Route::middleware(['scope:product.write'])->post('/product/{id}/restore', 'ProductController@restore');
 	});
 
+	Route::middleware([CheckToken::class])->group(function () {
+		Route::middleware(['scope:package.read'])->get('/package', 'PackageController@index');
+
+		Route::middleware(['scope:package.read'])->get('/package/{id}', 'PackageController@show');
+
+		Route::middleware(['scope:package.write'])->post('/package', 'PackageController@store');
+
+		Route::middleware(['scope:package.write'])->post('/package/{id}', 'PackageController@update');
+
+		Route::middleware(['scope:package.remove'])->delete('/package/{id}', 'PackageController@destroy');
+
+		Route::middleware(['scope:package.remove'])->delete('/package/{id}/permanent-delete', 'PackageController@permanentDelete');
+
+		Route::middleware(['scope:package.write'])->post('/package/{id}/restore', 'PackageController@restore');
+	});
+
 	#EndLine
 });
